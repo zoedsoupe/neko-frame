@@ -1,0 +1,293 @@
+Tipo de carta
+Recursos:
+Suprimento/Dinheiro/Amizade/Suprimento
+Lendario (SL tem nomes especificos. Ex:
+“Carne”)
+Gatos:
+Domésticos, Divindades, Robos,
+Grandes Felinos, etc...
+Criaturinhas:
+Qualquer coisa que ndo seja um gato ou tutor e
+tenha pontos de briga e coragem
+Auxilios:
+usar)
+Cartas de efeitos (geralmente descartadas apos
+Treco:
+campo)
+Objetos com efeitos (Tendem a permanecer no
+Regras basicas:
+1. Cada jogador tem 21 de energia.
+1. 2. Exaurir sua energia te leva a derrotar
+Ser o tnico jogador com energia
+garante a vitória
+2. Cada deck tem 50 Cartas no principal
+e 20 no de recursos.
+1. Cartas de tutores e gatos não podem
+repetir nomes exceto para cartas
+Gêmeas
+2. Outras cartas podem ter até 5 cópias
+3. Todo deck possui um Tutor que pode
+ser utilizado a qualquer momento.
+1. Tutores ficam na zona de descanso
+no início da rinha e podem ser
+chamados pagando 2 de energia
+1. O valor aumenta e 1 para cada
+noa conjuração
+2. O valor pode aumentar ou
+diminuir por descrições de cartas
+2. O tutor sempre volta para a zona de
+descanso ao ser removido do campo.
+4. Para a preparação do jogo cada
+jogador deve:
+1. Posicionar seu baralho principal e o
+de recursos
+2. Reservar um espaço para a Rua
+10.
+1. Aruaéo local onde as cartas
+ficam após serem derrotadas ou
+descartadas
+3. Reservar um espago para o
+Cemitério
+1. Cemitério é o local onde as
+cartas ficam após serem
+sacrificadas ou destruidas
+4. 5. 6. Reservar um espago para o tutor
+Colocar o tutor no espago reservado
+Comprar 5 cartas do baralho
+principal
+O jogador deve comprar uma carta do
+baralho principal ou uma do de
+recursos a cada turno
+1. No primeiro turno de cada jogador a
+compra deve ser um recurso
+O jogador pode durante o turno dele:
+1. Colocar em campo 1 recursos
+2. Usar cartas de sua mão
+3. Usar efeitos do campo, rua ou
+cemitério
+4. Atacar um alvo que possua coragem
+1. Essa etapa só pode ser feita após
+todos os jogadores terem passado
+por seu primeiro inicio de turno
+Para usar uma carta o jogador deve
+pagar o custo de recursos ou energia
+descritas na carta
+1. Cartas de Recursos podem ser
+colocadas em campo gratuitamente,
+mas sdo limitadas a uma por turno
+2. Ao pagar o custo de recursos o
+jogador deve virar a carta de lado
+indicando que ela foi gasta
+3. Recursos gastos se recuperam no
+inicio do turno do jogador que as
+controla
+Cada jogador pode ter um maximo de
+7 cartas na mao ao final do turno
+1. Descarta-se o resto
+Cartas removidas do campo como
+resultado de dano de batalha vao para
+arua
+A coragem das cartas e restaurada
+para seu maximo no final de cada
+turno
+Nome: Pandora, Lider do Culto |Id: Gótica
+Tipo: Tutor
+Descrição: Os valores de briga e a coragem de
+Pandora são iguais ao nimero de gatos e
+criaturinhas pretas sob sua tutela. (Vale o que
+ta na imagem)
+Adestrar 1 — Selecione um gato ou criaturinha
+que esteja na rua e coloque-a no campo com
+um marcador +1/+1
+Briga: X Coragem: X
+Nome: Azeitona, O Preto Id: Doméstico
+Tipo: Gato Custo: 2S
+Descrição: Sempre que uma criaturinha entra
+em campo ela recebe 1 de dano.
+Briga: 3 Coragem: 2
+Nome: Ísis, Gata Mãe Id: Divindade
+Tipo: Gato Custo: 2S el
+“Carne”
+Descrigao: Sacrificar 1 — Mande uma carta do
+seu campo para o cemitério e chame essa carta
+para 0 campo sem pagar seu custo
+Ao entrar, restaura a coragem de todas as
+cartas possiveis.
+Quando usar uma carta de auxilio vocé pode
+pagar 1 “Carne” para duplica-la.
+Briga: 1 Coragem: 1
+Nome: Osiris 1d: Divindade
+Tipo: Gato
+Custo: 6S e 1
+“Carne”
+Descrição: Sacrificar 3
+Ao entrar, coloca uma criaturinha do cemitério
+no campo. Caso essa carta seja destruída e
+enviada para a rua ou cemitério ela retorna no
+final do turno.
+Briga: 7 Coragem: 3
+Nome: Seth Id: Divindade
+Tipo: Gato Custo: 2e 1
+“Carne”
+Descrigao: Essa carta não pode ser negada.
+Instantdnea
+Sacrificar 1
+Ao entrar, escolha um:
+* Destrua uma carta
+* Coloque todos os gatos na rua
+* Ganhe +6/+6 até o final do turno
+Briga: 1 Coragem: 1
+Nome: Anúbis 1d: Divindade
+Tipo: Gato
+Custo: 6S e 1
+“Carne”
+Descrição: Sacrificar 3
+Ao entrar, cria totens morto-vivo 2/2 até uma
+quantidade igual ao nimero de Criaturinhas no
+cemitério.
+Briga: 3 Coragem: 7
+Nome: Ra 1d: Divindade
+Tipo: Gato Custo: 5Se 2
+“Carne”
+Descrição: Pode atacar uma vez para cada
+divindade egipcia no seu campo
+Briga: 7 Coragem: 7
+Nome: Bastet Id: Divindade
+Tipo: Gato
+Custo: 7S e
+2 “Carne”
+Descrigao: Sacrificar 4
+Reflexos — Ataque primeiro ao brigar
+Coloque no seu campo todos os gatos que
+estiverem na rua.
+Briga: 10 Coragem: 10
+Nome: Menes, Construtor do Id: Nobre
+Deserto (Branco)
+Tipo: Gato Custo:
+Descrigdo: Coloque no campo 3 criaturinhas
+servo 1/1. Vocé pode sacrificar 3 criaturinhas
+para buscar 1 carta de monumento de seu deck
+Briga: 3 Coragem: 2
+Nome: Sacerdotisa do Sol Id: Mago
+(Laranja)
+Tipo: Gato Custo: 3 S
+Descrigao: Sacrifique 2 criaturinhas, gatos ou
+tutores e coloque no campo um Faraó da mão,
+deck ou cemitério
+Briga: 2 Coragem: 2
+Nome: Chamado de Bastet 1d:
+Tipo: Auxilio
+Custo: 7
+energias
+Descrição: Destrua do seu campo quantos
+Gatos, criaturinhas ou totens conseguir. Cause
+dano a um oponente igual a soma da Coragem
+das Criaturinhas destruidas
+Nome: O Faraó 1d: Nobre
+Tipo: Gato Custo: 4 S
+Nome: Templo no Deserto Id:
+Monumento
+Tipo: Treco Custo: 1 F
+Descrigdo: Ao entrar coloca 2 criaturinhas do
+Descrição: Sacrifique 3 criaturinhas, coloque
+seu deck no campo. Sempre que uma
+no campo vindo da mão deck ou cemitério uma
+criaturinha for destruido adicione ao campo
+Divindade Egípcia.
+uma mumia de seu deck. Ao ser enviado ao
+cemitério, se houver alguma criaturinha em
+campo, envie-a no lugar. Nome: Pirâmides do Faraó Id:
+Briga: 2 Coragem: 3 Monumento
+Tipo: Treco Custo: 2 F
+Nome: Múmia Canina Id: Canino Descrição: Ative um dos efeitos:
+Tipo: Criaturinha Custo: 1e 1 Sacrifique 1 criaturinha e coloque “O Faraó”
+' “Carn-e” no campo vindo de sua mão ou deck.
+Caso o Faraó esteja no cemitério coloque no
+Descrição: sempre que esta carta derrotar uma
+campo uma “múmia” de sua mão, rua,
+Criaturinha como resultado de uma batalha,
+cemitério ou deck.
+mande-a para o cemitério e crie um totem
+morto-vivo 2/2
+Briga: 3 Coragem: 3
+Nome: Corvo Mensageiro 1d: Passaro
+Tipo: Criaturinha
+Custo: 1S
+Descrição: Busque 1 nobre em seu deck e
+adicione a sua mao.
+Briga: 1 Coragem: 1
+Nome: Anunciação Id:
+Tipo: Auxílio Custo: 0
+Descrigdo: Divindades custam 2 a menos até o
+final do turno
+Nome: Sacrificio aos Deuses |Id:
+Tipo: Auxilio Custo: 1
+Descrição: Sacrifique X criaturas. Ganhe 3
+vezes a quantidade sacrificada em recursos.
+Esses recursos têm todos os nomes de recursos.
+Você apenas pode invocar Divindades no turno
+que essa carta for utilizada.
+Nome: Servo do Templo Id: Humano
+Tipo: Criaturinha Custo: 2 F
+Descrição: Recupera uma divindade do
+cemitério ou rua para a mão ao entrar. Se
+houver outro servo do templo busque 1 feitiço
+que possua “Templo” no nome.
+Briga: 1 Coragem: 3
+Nome: Não! Id:
+Tipo: Auxílio Custo: 1
+energia
+Descrição: Negue a carta alvo.
+Nome: Caixa de Areia Cheia — |Id:
+Tipo: Treco Custo: 2 S
+Descrigdo: Cria no campo de cada oponente 1
+totem de cocô para cada gato sob o controle
+deles. Esse totem é considera um Treco com a
+seguinte descrigdo: Outras cartas recebem -1/0.
+Pague 2 de energia e remova essa carta.
+Reativar 4 — ative novamente o efeito e
+descarte essa carta.
+Nome: Porta entreaberta 1d:
+Tipo: Auxilio Custo: 0
+Descrição: Envie da sua mão um gato para a
+rua, em seguida escolha um gato no campo e
+mande-o para a rua.
+Nome: Ataque surpresa! Id:
+Tipo: Auxílio Custo: 18
+Descrição: Selecione um de seus gatos e force-
+o a lutar com o gato, criaturinha ou tutor alvo.
+Nome: Brinde do Pet shop Id:
+Tipo: Auxílio Custo: 2 F
+Descrição: olhe as 3 cartas do topo do deck e
+coloque uma em sua mão, em seguida
+embaralhe o deck.
+Nome: Compras na Mãe Id:
+Tipo: Auxílio Custo: 3
+energias
+Descrição: escolha um recurso da sua pilha de
+recursos e coloque-a na mão.
+Tutora: Pan, Lider de Culto
+1x Azeitona, o Preto
+1x Ísis, Gata Mãe
+1x Osíris
+1x Seth
+1x Anúbis
+1x Rá
+1x Bastet
+1x Menes, o construtor do deserto
+1x Sacerdotisa do Sol
+1x O Faraó
+5x Múmia Canina
+5x Corvo Mensageiro
+5x Servo do templo
+3x Compras na mãe
+2x Chamado de Bastet
+2x Templo no Deserto
+3x Piramides do Faraó
+3x Anunciação
+2x Sacrifício aos deuses
+2x Não!
+2x Caixa de Areia Cheia
+2x Porta entreaberta
+2x Ataque surpresa
+2x Brinde do Pet shop
