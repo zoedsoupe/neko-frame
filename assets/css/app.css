@@ -739,17 +739,19 @@ body {
 /* Cost Badges System */
 .cost-badges-container {
   display: flex;
-  gap: 3px;
+  gap: 2.5px;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .cost-badge {
-  font-size: 3pt;
+  font-size: 2.8pt;
   text-align: center;
+  vertical-align: middle;
+  line-height: 4pt;
   font-weight: 700;
-  padding: 0.5px 1px;
+  padding: .5px .5px;
   border-radius: 12px;
   white-space: nowrap;
   color: var(--primary-dark);
@@ -772,13 +774,11 @@ body {
 .cost-badge.suprimento_especial {
   background: linear-gradient(135deg, #f4d03f, #f7dc6f);
   box-shadow: 0 0 8px rgba(244, 208, 63, 0.4);
-  padding: 1px 2px;
 }
 
 .cost-badge.energy {
   background: linear-gradient(135deg, #5dade2, #85c1e9);
   box-shadow: 0 0 8px rgba(93, 173, 226, 0.4);
-  padding: 1px 2px;
 }
 
 /* Special items animation */

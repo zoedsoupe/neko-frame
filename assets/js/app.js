@@ -107,37 +107,53 @@ function initializeUploadHandlers() {
 document.addEventListener('DOMContentLoaded', initializeUploadHandlers);
 document.addEventListener('phx:update', initializeUploadHandlers);
 
-export async function exportCard(format = 'png') {
-    const cardElement = document.querySelector('.card-frame');
+export async function exportCard(format = "png") {
+  const cardElement = document.querySelector(".card-frame");
 
-    // Magic card dimensions at 600 DPI for professional printing
-    const cardWidthPixels = 1500;  // 2.5" * 600 DPI
-    const cardHeightPixels = 2100; // 3.5" * 600 DPI
+  // Final resolution for the exported card
+  const CARD_WIDTH = 1500;
+  const CARD_HEIGHT = 2100;
 
-    // Using html2canvas library for high-quality export
-    const canvas = await html2canvas(cardElement, {
-      scale: 8, // Very high scale for ultra-sharp export
-      backgroundColor: 'transparent',
-      logging: false,
-      useCORS: true,
-      allowTaint: false,
-      removeContainer: true,
-      width: cardWidthPixels,
-      height: cardHeightPixels,
-      scrollX: 0,
-      scrollY: 0
-    });
+  // Internal render scale: bigger = sharper, but also bigger file size
+  const RENDER_SCALE = 6;
 
-    // Download the image
-    canvas.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `card-${Date.now()}.${format}`;
-      a.click();
-      URL.revokeObjectURL(url);
-    }, `image/${format}`, format === 'jpeg' ? 0.95 : 1);
-  }
+  // 1) Clone card without altering layout or ratio
+  const clone = cardElement.cloneNode(true);
+  clone.style.position = "absolute";
+  clone.style.top = "-9999px"; // offscreen
+  document.body.appendChild(clone);
+
+  // 2) Render at high resolution using scale
+  const rawCanvas = await html2canvas(clone, {
+    backgroundColor: null,
+    useCORS: true,
+    scrollX: 0,
+    scrollY: 0,
+    scale: RENDER_SCALE // this is the key for sharpness
+  });
+
+  document.body.removeChild(clone);
+
+  // 3) Create final canvas at exact Magic size
+  const finalCanvas = document.createElement("canvas");
+  finalCanvas.width = CARD_WIDTH;
+  finalCanvas.height = CARD_HEIGHT;
+  const ctx = finalCanvas.getContext("2d");
+
+  // Downscale high-res render → sharp final image
+  ctx.drawImage(rawCanvas, 0, 0, CARD_WIDTH, CARD_HEIGHT);
+
+  // 4) Export as PNG/JPEG
+  finalCanvas.toBlob((blob) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `card-${Date.now()}.${format}`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, `image/${format}`, format === "jpeg" ? 0.95 : 1);
+}
+
 
 window.exportCard = exportCard.bind(this);
 
