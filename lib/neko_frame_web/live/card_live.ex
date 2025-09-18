@@ -281,7 +281,7 @@ defmodule NekoFrameWeb.CardLive do
   defp upload_file(%{path: path}) do
     # Generate unique filename
     filename = "#{System.unique_integer([:positive])}_#{Path.basename(path)}"
-    dest = Path.join("priv/static/uploads", filename)
+    dest = Path.join(NekoFrame.upload_path(), filename)
 
     # Ensure uploads directory exists
     uploads_dir = Path.dirname(dest)

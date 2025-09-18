@@ -18,5 +18,6 @@ defmodule NekoFrameWeb.Router do
     pipe_through :browser
 
     live "/", CardLive
+    get "/uploads/:filename", UploadedController, :fetch
   end
 end
