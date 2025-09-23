@@ -68,8 +68,7 @@ body {
   background-size: cover;
   background-position: center;
   position: relative;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  image-rendering: auto;
 }
 
 /* Name overlay - floats on top of art */
@@ -752,13 +751,13 @@ body {
   justify-content: center;
   line-height: 1;
   font-weight: 700;
-  padding: 1.5px 3px;
-  border-radius: 12px;
+  padding: 1px 1.5px;
+  border-radius: 70%;
   white-space: nowrap;
   color: var(--primary-dark);
   text-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  min-width: 8px;
+  min-width: 4px;
   min-height: 8px;
 }
 

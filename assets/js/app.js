@@ -117,13 +117,13 @@ document.addEventListener('phx:update', initializeUploadHandlers);
 export async function exportCard(format = "png") {
   const cardElement = document.querySelector(".card-frame");
 
-  // Magic card standard dimensions at 300 DPI for print quality
-  // 2.5 x 3.5 inches at 300 DPI = 750 x 1050 pixels
-  const CARD_WIDTH = 750;
-  const CARD_HEIGHT = 1050;
+  // Magic card standard dimensions at 600 DPI for maximum quality
+  // 2.5 x 3.5 inches at 600 DPI = 1500 x 2100 pixels
+  const CARD_WIDTH = 1500;
+  const CARD_HEIGHT = 2100;
 
-  // Internal render scale: bigger = sharper, but also bigger file size
-  const RENDER_SCALE = 6;
+  // Maximum render scale for sharpest possible image
+  const RENDER_SCALE = 10;
 
   // 1) Clone card and reset any preview transforms
   const clone = cardElement.cloneNode(true);
@@ -136,28 +136,32 @@ export async function exportCard(format = "png") {
   clone.style.margin = "0";
   document.body.appendChild(clone);
 
-  // 2) Render at high resolution - let html2canvas determine dimensions
+  // 2) Render at maximum resolution with optimized settings
   const rawCanvas = await html2canvas(clone, {
     backgroundColor: null,
     useCORS: true,
+    allowTaint: false,
+    logging: false,
     scrollX: 0,
     scrollY: 0,
-    scale: RENDER_SCALE // Remove width/height constraints
+    scale: RENDER_SCALE, // Maximum quality
+    imageTimeout: 0, // No timeout for image loading
+    removeContainer: true // Clean up after rendering
   });
 
   document.body.removeChild(clone);
 
-  // 3) Create final canvas at exact Magic size (300 DPI)
+  // 3) Create final canvas at exact Magic size (600 DPI)
   const finalCanvas = document.createElement("canvas");
   finalCanvas.width = CARD_WIDTH;
   finalCanvas.height = CARD_HEIGHT;
   const ctx = finalCanvas.getContext("2d");
 
-  // Set canvas DPI metadata for proper printing
+  // Set maximum quality image interpolation
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
 
-  // Downscale high-res render → sharp final image
+  // Downscale high-res render → ultra-sharp final image
   ctx.drawImage(rawCanvas, 0, 0, CARD_WIDTH, CARD_HEIGHT);
 
   // 4) Export as PNG with maximum quality
