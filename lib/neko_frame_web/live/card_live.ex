@@ -35,7 +35,7 @@ defmodule NekoFrameWeb.CardLive do
      |> allow_upload(:card_art,
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
-       max_file_size: 10_000_000,
+       max_file_size: 25_000_000,
        progress: &handle_progress/3,
        auto_upload: true
      )}
@@ -187,7 +187,7 @@ defmodule NekoFrameWeb.CardLive do
                 <div style="font-weight: 600; margin-bottom: 0.5rem;">
                   Clique ou arraste uma imagem
                 </div>
-                <div class="upload-hint">PNG, JPG ou JPEG • Máximo 10MB</div>
+                <div class="upload-hint">PNG, JPG ou JPEG • Máximo 25MB</div>
               </div>
             </div>
           </div>

@@ -37,9 +37,9 @@ body {
 
 /* Card Frame - Magic card standard dimensions */
 .card-frame {
-  width: 63.5mm;
+  width: 2.5in;
   /* 2.5 inches - Magic card standard */
-  height: 88.9mm;
+  height: 3.5in;
   /* 3.5 inches - Magic card standard */
   position: relative;
   top: 5rem;
@@ -114,12 +114,12 @@ body {
   top: 16px;
   left: 12px;
   right: 12px;
-  height: 22px;
+  height: 20px;
   padding: 0 8px;
   background: linear-gradient(to right,
-      rgba(26, 20, 35, 0.95),
       rgba(26, 20, 35, 0.85),
-      rgba(26, 20, 35, 0.95));
+      rgba(26, 20, 35, 0.75),
+      rgba(26, 20, 35, 0.85));
   backdrop-filter: blur(8px);
   border-radius: 8px;
   border: 2px solid var(--card-type-color);
@@ -131,7 +131,7 @@ body {
 }
 
 .card-name {
-  font-size: 9pt;
+  font-size: 8.5pt;
   font-weight: 700;
   color: var(--text-primary);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -435,11 +435,11 @@ body {
   overflow: hidden;
 }
 
-/* Scale up card preview for better readability */
+/* Scale up card preview for better readability while maintaining exact ratio */
 .preview-panel .card-frame {
-  transform: scale(1.5);
+  transform: scale(1.4);
   transform-origin: center;
-  margin: 0.5rem 1rem;
+  margin: 0.8rem 1rem;
 }
 
 .export-controls {
@@ -483,7 +483,7 @@ body {
   }
 
   .preview-panel .card-frame {
-    transform: scale(1.3);
+    transform: scale(1.2);
     margin: 0.75rem;
   }
 }
@@ -509,7 +509,7 @@ body {
   }
 
   .preview-panel .card-frame {
-    transform: scale(1.2);
+    transform: scale(1.1);
     margin: 0.5rem;
   }
 
@@ -588,8 +588,8 @@ body {
     border-radius: 12px;
   }
 
-  .card-frame {
-    transform: scale(0.8);
+  .preview-panel .card-frame {
+    transform: scale(0.9);
     transform-origin: center;
   }
 
@@ -747,38 +747,46 @@ body {
 
 .cost-badge {
   font-size: 2.8pt;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 4pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
   font-weight: 700;
-  padding: .5px .5px;
+  padding: 1.5px 3px;
   border-radius: 12px;
   white-space: nowrap;
   color: var(--primary-dark);
   text-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  min-width: 8px;
+  min-height: 8px;
 }
 
 .cost-badge.suprimento_comum {
-  background: #ff8a8a;
+  background: #ff5757;
+  box-shadow: 0 0 4px rgba(255, 87, 87, 0.3);
 }
 
 .cost-badge.favor {
-  background: #f2effa;
+  background: #ffffff;
+  color: var(--primary-dark);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
 }
 
 .cost-badge.dinheiro {
-  background: #8dd99f;
+  background: #4ade80;
+  box-shadow: 0 0 4px rgba(74, 222, 128, 0.3);
 }
 
 .cost-badge.suprimento_especial {
-  background: linear-gradient(135deg, #f4d03f, #f7dc6f);
-  box-shadow: 0 0 8px rgba(244, 208, 63, 0.4);
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
 }
 
 .cost-badge.energy {
-  background: linear-gradient(135deg, #5dade2, #85c1e9);
-  box-shadow: 0 0 8px rgba(93, 173, 226, 0.4);
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
 }
 
 /* Special items animation */

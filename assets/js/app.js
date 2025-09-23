@@ -28,8 +28,8 @@ import {hooks as colocatedHooks} from "phoenix-colocated/neko_frame"
 import topbar from "../vendor/topbar"
 import html2canvas from "html2canvas";
 
-// Image resizing function
-function resizeImage(file, maxWidth = 1200, maxHeight = 1800, quality = 0.95) {
+// Image resizing function with higher quality settings
+function resizeImage(file, maxWidth = 2400, maxHeight = 3600, quality = 0.98) {
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -39,22 +39,29 @@ function resizeImage(file, maxWidth = 1200, maxHeight = 1800, quality = 0.95) {
       // Calculate new dimensions maintaining aspect ratio
       let { width, height } = img;
 
-      if (width > height) {
-        if (width > maxWidth) {
-          height = (height * maxWidth) / width;
-          width = maxWidth;
-        }
-      } else {
-        if (height > maxHeight) {
-          width = (width * maxHeight) / height;
-          height = maxHeight;
+      // Only resize if image is larger than max dimensions
+      if (width > maxWidth || height > maxHeight) {
+        if (width > height) {
+          if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = (width * maxHeight) / height;
+            height = maxHeight;
+          }
         }
       }
 
       canvas.width = width;
       canvas.height = height;
 
-      // Draw and compress
+      // Enable high-quality image smoothing
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      // Draw and compress with high quality
       ctx.drawImage(img, 0, 0, width, height);
 
       canvas.toBlob(resolve, file.type, quality);
@@ -110,48 +117,58 @@ document.addEventListener('phx:update', initializeUploadHandlers);
 export async function exportCard(format = "png") {
   const cardElement = document.querySelector(".card-frame");
 
-  // Final resolution for the exported card
-  const CARD_WIDTH = 1500;
-  const CARD_HEIGHT = 2100;
+  // Magic card standard dimensions at 300 DPI for print quality
+  // 2.5 x 3.5 inches at 300 DPI = 750 x 1050 pixels
+  const CARD_WIDTH = 750;
+  const CARD_HEIGHT = 1050;
 
   // Internal render scale: bigger = sharper, but also bigger file size
   const RENDER_SCALE = 6;
 
-  // 1) Clone card without altering layout or ratio
+  // 1) Clone card and reset any preview transforms
   const clone = cardElement.cloneNode(true);
   clone.style.position = "absolute";
   clone.style.top = "-9999px"; // offscreen
+  clone.style.width = "2.5in"; // Ensure exact dimensions
+  clone.style.height = "3.5in";
+  clone.style.transform = "none"; // Reset any scaling from preview
+  clone.style.transformOrigin = "initial";
+  clone.style.margin = "0";
   document.body.appendChild(clone);
 
-  // 2) Render at high resolution using scale
+  // 2) Render at high resolution - let html2canvas determine dimensions
   const rawCanvas = await html2canvas(clone, {
     backgroundColor: null,
     useCORS: true,
     scrollX: 0,
     scrollY: 0,
-    scale: RENDER_SCALE // this is the key for sharpness
+    scale: RENDER_SCALE // Remove width/height constraints
   });
 
   document.body.removeChild(clone);
 
-  // 3) Create final canvas at exact Magic size
+  // 3) Create final canvas at exact Magic size (300 DPI)
   const finalCanvas = document.createElement("canvas");
   finalCanvas.width = CARD_WIDTH;
   finalCanvas.height = CARD_HEIGHT;
   const ctx = finalCanvas.getContext("2d");
 
+  // Set canvas DPI metadata for proper printing
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+
   // Downscale high-res render → sharp final image
   ctx.drawImage(rawCanvas, 0, 0, CARD_WIDTH, CARD_HEIGHT);
 
-  // 4) Export as PNG/JPEG
+  // 4) Export as PNG with maximum quality
   finalCanvas.toBlob((blob) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `card-${Date.now()}.${format}`;
+    a.download = `neko-card-${Date.now()}.${format}`;
     a.click();
     URL.revokeObjectURL(url);
-  }, `image/${format}`, format === "jpeg" ? 0.95 : 1);
+  }, `image/${format}`, 1);
 }
 
 
