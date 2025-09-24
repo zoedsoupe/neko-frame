@@ -73,7 +73,7 @@ document.addEventListener("phx:update", initializeUploadHandlers);
 
 function normalizecardname(cardname) {
   return cardname
-    .toLower()
+    .toLowerCase()
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/\s/, "-")
     .trim();

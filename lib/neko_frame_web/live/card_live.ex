@@ -226,7 +226,7 @@ defmodule NekoFrameWeb.CardLive do
             <div class="card-type-line">
               <span class="card-type-badge">
                 {@form[:type].value}{if @form[:class].value && @form[:class].value != "",
-                  do: " — #{@form[:class].value}",
+                  do: " #{@form[:class].value}",
                   else: ""}
               </span>
             </div>
