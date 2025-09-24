@@ -8,6 +8,7 @@ defmodule NekoFrameWeb.CardComponents do
   attr :type, :string, default: "text"
   attr :field, Phoenix.HTML.FormField, doc: "a form field struct"
   attr :errors, :list, default: []
+  attr :default, :any, default: nil
 
   attr :rest, :global,
     include: ~w(disabled readonly placeholder rows required min max step options)
@@ -28,7 +29,9 @@ defmodule NekoFrameWeb.CardComponents do
         {@label}
       </label>
       <select id={@id} name={@name} class="select-input" {@rest}>
-        <option :for={option <- @rest.options} value={option}>{option}</option>
+        <option :for={option <- @rest.options} selected={@default == option} value={option}>
+          {option}
+        </option>
       </select>
       <div :for={msg <- @errors} class="input-error">{msg}</div>
     </div>

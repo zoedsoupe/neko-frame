@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "html2canvas": "^1.4.1"
+    "@zumer/snapdom": "^1.9.11",
+    "file-saver": "^2.0.5"
   }
 }

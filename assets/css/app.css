@@ -13,10 +13,14 @@
   --auxilio-color: #6bcf7f;
   --treco-color: #ff8c42;
   --recurso-color: #7b68ee;
-  --tutor-color: #8B4F9F;
+  --tutor-color: #8b4f9f;
 
   /* Default card variables */
-  --card-bg-gradient: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+  --card-bg-gradient: linear-gradient(
+    135deg,
+    var(--primary-dark),
+    var(--secondary-dark)
+  );
   --card-type-color: var(--gato-color);
   --card-bg-light: #c4a3e8;
 
@@ -32,7 +36,11 @@ body {
   background-attachment: fixed;
   min-height: 100vh;
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 }
 
 /* Card Frame - Magic card standard dimensions */
@@ -42,17 +50,22 @@ body {
   height: 3.5in;
   /* 3.5 inches - Magic card standard */
   position: relative;
-  top: 5rem;
+  top: 1rem;
   border-radius: 12px;
   overflow: hidden;
   background: var(--card-bg-gradient);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    0 0 0 2px var(--card-type-color),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+}
+
+/* Utility class for export mode to ensure full capture */
+.card-frame.exporting {
+  overflow: visible !important;
+  transform: none !important;
+  position: relative !important;
+  top: 0 !important;
+  margin: 0 !important;
 }
 
 .card-frame:hover {
@@ -71,7 +84,7 @@ body {
   /* Takes up 65% of card like Yu-Gi-Oh */
   width: 100%;
   overflow: hidden;
-  background: #000;
+  background: #f0f0f0;
   border-radius: 8px 8px 0 0;
 }
 
@@ -126,15 +139,10 @@ body {
   top: 12px;
   left: 10px;
   right: 10px;
-  padding: 4px 8px;
-  background: linear-gradient(to right,
-      rgba(26, 20, 35, 0.75),
-      rgba(26, 20, 35, 0.65),
-      rgba(26, 20, 35, 0.75));
-  backdrop-filter: blur(8px);
+  padding: 3.5px 8px;
+  background: transparent;
   border-radius: 8px;
   border: 2px solid var(--card-type-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -172,10 +180,13 @@ body {
   flex-shrink: 0;
 }
 
-
 .card-type-badge {
   display: inline-block;
-  background: linear-gradient(135deg, var(--card-type-color), rgba(255, 255, 255, 0.8));
+  background: linear-gradient(
+    135deg,
+    var(--card-type-color),
+    rgba(255, 255, 255, 0.8)
+  );
   color: var(--primary-dark);
   font-size: 7pt;
   font-weight: 700;
@@ -183,7 +194,8 @@ body {
   border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+  vertical-align: middle;
 }
 
 .card-description {
@@ -217,7 +229,6 @@ body {
   border-radius: 6px;
   padding: 4px 4px;
   backdrop-filter: blur(4px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   font-size: 10px;
   font-weight: 800;
   color: var(--card-type-color);
@@ -256,7 +267,6 @@ body {
 }
 
 @keyframes divine-glow {
-
   0%,
   100% {
     box-shadow:
@@ -277,7 +287,6 @@ body {
 }
 
 @keyframes tutor-pulse {
-
   0%,
   100% {
     box-shadow:
@@ -305,10 +314,12 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg,
-      transparent 30%,
-      rgba(255, 255, 255, 0.08) 50%,
-      transparent 70%);
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%
+  );
   animation: holographic 6s linear infinite;
   pointer-events: none;
 }
@@ -333,14 +344,16 @@ body {
   content: "";
   position: absolute;
   inset: -3px;
-  background: conic-gradient(from 0deg,
-      #ff6b6b 0deg,
-      #ffd93d 60deg,
-      #6bcf7f 120deg,
-      #4d96ff 180deg,
-      #a864fd 240deg,
-      #ff6b6b 300deg,
-      #ff6b6b 360deg);
+  background: conic-gradient(
+    from 0deg,
+    #ff6b6b 0deg,
+    #ffd93d 60deg,
+    #6bcf7f 120deg,
+    #4d96ff 180deg,
+    #a864fd 240deg,
+    #ff6b6b 300deg,
+    #ff6b6b 360deg
+  );
   border-radius: 12px;
   opacity: 0.9;
   animation: legendary-border 4s linear infinite;
@@ -352,14 +365,16 @@ body {
   content: "";
   position: absolute;
   inset: -6px;
-  background: conic-gradient(from 180deg,
-      transparent,
-      rgba(255, 107, 107, 0.4),
-      transparent,
-      rgba(255, 217, 61, 0.4),
-      transparent,
-      rgba(107, 207, 127, 0.4),
-      transparent);
+  background: conic-gradient(
+    from 180deg,
+    transparent,
+    rgba(255, 107, 107, 0.4),
+    transparent,
+    rgba(255, 217, 61, 0.4),
+    transparent,
+    rgba(107, 207, 127, 0.4),
+    transparent
+  );
   border-radius: 15px;
   animation: legendary-border 6s linear infinite reverse;
   z-index: -2;
@@ -382,27 +397,32 @@ body {
   position: absolute;
   inset: 0;
   background:
-    repeating-linear-gradient(45deg,
+    repeating-linear-gradient(
+      45deg,
       transparent,
       transparent 8px,
       rgba(255, 255, 255, 0.06) 8px,
-      rgba(255, 255, 255, 0.06) 16px),
-    repeating-linear-gradient(-45deg,
+      rgba(255, 255, 255, 0.06) 16px
+    ),
+    repeating-linear-gradient(
+      -45deg,
       transparent,
       transparent 12px,
       rgba(255, 215, 0, 0.04) 12px,
-      rgba(255, 215, 0, 0.04) 24px),
-    radial-gradient(circle at 50% 50%,
+      rgba(255, 215, 0, 0.04) 24px
+    ),
+    radial-gradient(
+      circle at 50% 50%,
       transparent 40%,
       rgba(255, 255, 255, 0.02) 50%,
-      transparent 60%);
+      transparent 60%
+    );
   mix-blend-mode: screen;
   animation: foil-shimmer 8s ease-in-out infinite;
   pointer-events: none;
 }
 
 @keyframes foil-shimmer {
-
   0%,
   100% {
     transform: translateX(-120%) skew(-10deg);
@@ -416,7 +436,6 @@ body {
 }
 
 @keyframes legendary-pulse {
-
   0%,
   100% {
     transform: translateX(-50%) scale(1);
@@ -453,7 +472,7 @@ body {
   align-items: center;
   justify-content: space-around;
   gap: 0.5rem;
-  padding: 1.5rem;
+  padding: 2rem;
   background: rgba(26, 20, 35, 0.4);
   backdrop-filter: blur(8px);
   border: 1px solid var(--night-blue);
@@ -461,7 +480,7 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 1rem;
-  max-height: calc(80vh - 1rem);
+  max-height: calc(50vh - 1rem);
   overflow: hidden;
 }
 
@@ -483,7 +502,11 @@ body {
 
 .btn-export {
   flex: 1;
-  background: linear-gradient(135deg, var(--priestess-purple), rgba(255, 255, 255, 0.2));
+  background: linear-gradient(
+    135deg,
+    var(--priestess-purple),
+    rgba(255, 255, 255, 0.2)
+  );
   color: var(--primary-dark);
   border: none;
   padding: 12px 16px;
@@ -777,18 +800,18 @@ body {
 
 .cost-badge {
   font-size: 2.8pt;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1.2;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 10px;
   font-weight: 700;
-  padding: 2px 3px;
+  padding: 0;
   border-radius: 70%;
   white-space: nowrap;
   color: var(--primary-dark);
   text-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  width: 5px;
+  width: 10px;
   height: 10px;
   box-sizing: border-box;
 }
@@ -827,7 +850,6 @@ body {
 }
 
 @keyframes special-glow {
-
   0%,
   100% {
     transform: scale(1);
@@ -856,7 +878,11 @@ body {
   font-weight: 700;
   margin-bottom: 2rem;
   text-align: center;
-  background: linear-gradient(135deg, var(--priestess-purple), var(--accent-gold));
+  background: linear-gradient(
+    135deg,
+    var(--priestess-purple),
+    var(--accent-gold)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

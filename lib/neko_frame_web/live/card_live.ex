@@ -5,6 +5,16 @@ defmodule NekoFrameWeb.CardLive do
 
   require Logger
 
+  @card_types Enum.sort(~w|Gato Criaturinha Auxílio Treco Recurso Divindade Tutor|)
+  @cost_types [
+    {"suprimento_comum", "Suprimento Comum"},
+    {"favor", "Favor"},
+    {"dinheiro", "Dinheiro"},
+    {"suprimento_especial", "Suprimento Especial"},
+    {"energy", "Energia"}
+  ]
+  @default_font_size "8"
+
   @impl true
   def mount(_params, _session, socket) do
     form =
@@ -20,22 +30,22 @@ defmodule NekoFrameWeb.CardLive do
         "description" => "",
         "briga" => "",
         "coragem" => "",
-        "font_size" => "9"
+        "font_size" => @default_font_size
       })
 
     Logger.info("CardLive mounted, setting up upload configuration")
 
     {:ok,
      socket
+     |> assign(:card_types, @card_types)
      |> assign(:form, form)
-     |> assign(:card_class, "gato")
-     |> assign(:is_legendary, false)
+     |> assign(:card_type, "gato")
      |> assign(:preview_url, nil)
-     |> assign(:font_size, 9)
+     |> assign(:font_size, 8)
      |> allow_upload(:card_art,
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
-       max_file_size: 25_000_000,
+       max_file_size: 10_000_000,
        progress: &handle_progress/3,
        auto_upload: true
      )}
@@ -63,7 +73,8 @@ defmodule NekoFrameWeb.CardLive do
               type="select"
               field={@form[:type]}
               label="Tipo da Carta"
-              options={["Gato", "Criaturinha", "Auxílio", "Treco", "Recurso", "Divindade", "Tutor"]}
+              options={@card_types}
+              default="Gato"
               required
             />
             <.input
@@ -151,28 +162,26 @@ defmodule NekoFrameWeb.CardLive do
           </div>
           
     <!-- Combat Stats (For Cats/Creatures) -->
-          <%= if @form[:type].value in ["Gato", "Criaturinha", "Divindade", "Tutor"] do %>
-            <div class="form-section">
-              <div class="stats-inputs">
-                <.input
-                  id="briga-input"
-                  field={@form[:briga]}
-                  label="Briga"
-                  type="text"
-                  placeholder="0 ou X"
-                  required
-                />
-                <.input
-                  id="coragem-input"
-                  field={@form[:coragem]}
-                  label="Coragem"
-                  type="text"
-                  placeholder="0 ou X"
-                  required
-                />
-              </div>
+          <div :if={has_stats?(@form[:type].value)} class="form-section">
+            <div class="stats-inputs">
+              <.input
+                id="briga-input"
+                field={@form[:briga]}
+                label="Briga"
+                type="text"
+                placeholder="0 ou X"
+                required
+              />
+              <.input
+                id="coragem-input"
+                field={@form[:coragem]}
+                label="Coragem"
+                type="text"
+                placeholder="0 ou X"
+                required
+              />
             </div>
-          <% end %>
+          </div>
           
     <!-- Image Upload -->
           <div class="form-section">
@@ -187,7 +196,7 @@ defmodule NekoFrameWeb.CardLive do
                 <div style="font-weight: 600; margin-bottom: 0.5rem;">
                   Clique ou arraste uma imagem
                 </div>
-                <div class="upload-hint">PNG, JPG ou JPEG • Máximo 25MB</div>
+                <div class="upload-hint">PNG, JPG ou JPEG</div>
               </div>
             </div>
           </div>
@@ -196,7 +205,7 @@ defmodule NekoFrameWeb.CardLive do
       
     <!-- Live Preview -->
       <div class="preview-panel">
-        <div class={"card-frame #{@card_class} #{if @is_legendary, do: "legendary"}"}>
+        <div class={"card-frame #{@card_type}"}>
           <!-- Full art area with name overlay -->
           <div class="card-art-area">
             <img
@@ -204,15 +213,15 @@ defmodule NekoFrameWeb.CardLive do
               alt="Card Art"
               class="card-art-image"
             />
-
-            <!-- Name and cost overlay on top of art -->
+            
+    <!-- Name and cost overlay on top of art -->
             <div class="card-name-overlay">
               <span class="card-name">{@form[:name].value || "Nome da Carta"}</span>
               {render_cost_badges(@form)}
             </div>
           </div>
-
-          <!-- Bottom section with type and description -->
+          
+    <!-- Bottom section with type and description -->
           <div class="card-bottom-section">
             <div class="card-type-line">
               <span class="card-type-badge">
@@ -221,24 +230,22 @@ defmodule NekoFrameWeb.CardLive do
                   else: ""}
               </span>
             </div>
-            <div class="card-description" style={"font-size: #{@font_size}pt;"}>
+            <div class="card-description" style={"font-size: #{@form[:font_size].value}pt;"}>
               {@form[:description].value || "Descrição da carta..."}
             </div>
           </div>
-
-          <!-- Stats overlay -->
-          <%= if @form[:type].value in ["Gato", "Criaturinha", "Divindade", "Tutor"] do %>
-            <div class="card-stats">
-              <span class="stat-value">{@form[:briga].value || "0"}</span>
-              <span class="stats-divider">—</span>
-              <span class="stat-value">{@form[:coragem].value || "0"}</span>
-            </div>
-          <% end %>
+          
+    <!-- Stats overlay -->
+          <div :if={has_stats?(@form[:type].value)} class="card-stats">
+            <span class="stat-value">{@form[:briga].value || "0"}</span>
+            <span class="stats-divider">—</span>
+            <span class="stat-value">{@form[:coragem].value || "0"}</span>
+          </div>
         </div>
         
     <!-- Export buttons -->
         <div class="export-controls">
-          <button type="button" onclick="exportCard('png')" class="btn-export">
+          <button type="button" onclick={~s|exportCard('#{@form[:name].value}')|} class="btn-export">
             Exportar como PNG
           </button>
         </div>
@@ -247,19 +254,17 @@ defmodule NekoFrameWeb.CardLive do
     """
   end
 
+  def has_stats?(type), do: type not in ~w(Auxílio Recurso Treco)
+
   @impl true
   def handle_event("update_card", params, socket) do
     form = to_form(params)
-    card_class = determine_card_class(params["type"])
-    is_legendary = is_legendary_card?(params)
-    font_size = atoi(params["font_size"] || "9")
+    card_type = determine_card_type(params["type"])
 
     {:noreply,
      socket
      |> assign(:form, form)
-     |> assign(:card_class, card_class)
-     |> assign(:is_legendary, is_legendary)
-     |> assign(:font_size, font_size)}
+     |> assign(:card_type, card_type)}
   end
 
   @impl true
@@ -302,32 +307,20 @@ defmodule NekoFrameWeb.CardLive do
     {:ok, url}
   end
 
-  defp determine_card_class("Gato"), do: "gato"
-  defp determine_card_class("Divindade"), do: "divindade"
-  defp determine_card_class("Criaturinha"), do: "criaturinha"
-  defp determine_card_class("Auxílio"), do: "auxilio"
-  defp determine_card_class("Treco"), do: "treco"
-  defp determine_card_class("Recurso"), do: "recurso"
-  defp determine_card_class("Tutor"), do: "tutor"
-  defp determine_card_class(_), do: "gato"
-
-  defp is_legendary_card?(params) do
-    params["type"] == "Divindade"
-  end
+  defp determine_card_type("Gato"), do: "gato"
+  defp determine_card_type("Divindade"), do: "divindade"
+  defp determine_card_type("Criaturinha"), do: "criaturinha"
+  defp determine_card_type("Auxílio"), do: "auxilio"
+  defp determine_card_type("Treco"), do: "treco"
+  defp determine_card_type("Recurso"), do: "recurso"
+  defp determine_card_type("Tutor"), do: "tutor"
+  defp determine_card_type(_), do: "gato"
 
   defp render_cost_badges(form) do
-    cost_types = [
-      {"suprimento_comum", "Suprimento Comum"},
-      {"favor", "Favor"},
-      {"dinheiro", "Dinheiro"},
-      {"suprimento_especial", "Suprimento Especial"},
-      {"energy", "Energia"}
-    ]
-
     badge_strings =
-      cost_types
+      @cost_types
       |> Enum.map(&gen_badge_string(form, &1))
-      |> Enum.filter(&(&1 != nil))
+      |> Enum.reject(&is_nil/1)
 
     case badge_strings do
       [] ->
