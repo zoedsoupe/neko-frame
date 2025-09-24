@@ -43,7 +43,7 @@ body {
   /* 3.5 inches - Magic card standard */
   position: relative;
   top: 5rem;
-  border-radius: 0px;
+  border-radius: 12px;
   overflow: hidden;
   background: var(--card-bg-gradient);
   box-shadow:
@@ -51,6 +51,8 @@ body {
     0 0 0 2px var(--card-type-color),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-frame:hover {
@@ -62,13 +64,15 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.card-art {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
+/* Full Art Area - Yu-Gi-Oh Style */
+.card-art-area {
   position: relative;
-  image-rendering: auto;
+  height: 95%;
+  /* Takes up 65% of card like Yu-Gi-Oh */
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  border-radius: 8px 8px 0 0;
 }
 
 /* Name overlay - floats on top of art */
@@ -108,17 +112,25 @@ body {
   --card-bg-light: #b08bb5;
 }
 
+.card-art-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  image-rendering: auto;
+}
+
+/* Name Overlay on Art - Yu-Gi-Oh Style */
 .card-name-overlay {
   position: absolute;
-  top: 16px;
-  left: 12px;
-  right: 12px;
-  height: 20px;
-  padding: 0 8px;
+  top: 12px;
+  left: 10px;
+  right: 10px;
+  padding: 4px 8px;
   background: linear-gradient(to right,
-      rgba(26, 20, 35, 0.85),
       rgba(26, 20, 35, 0.75),
-      rgba(26, 20, 35, 0.85));
+      rgba(26, 20, 35, 0.65),
+      rgba(26, 20, 35, 0.75));
   backdrop-filter: blur(8px);
   border-radius: 8px;
   border: 2px solid var(--card-type-color);
@@ -126,11 +138,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  overflow: hidden;
+  min-height: 10px;
 }
 
 .card-name {
-  font-size: 8.5pt;
+  font-size: 8pt;
   font-weight: 700;
   color: var(--text-primary);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -142,74 +154,93 @@ body {
   line-height: 1;
 }
 
-/* Bottom frame - 40% for description */
-.card-bottom-frame {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 22% !important;
+/* Bottom Section - Yu-Gi-Oh Style */
+.card-bottom-section {
+  height: 35%;
+  /* Remaining space after art */
   background: var(--card-bg-light);
-  border-top: 4px solid var(--card-type-color);
-  padding: 16px;
-  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 8px 10px;
+  border-top: 3px solid var(--card-type-color);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  border-radius: 0 0 8px 8px;
+  position: relative;
 }
+
+.card-type-line {
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+
 
 .card-type-badge {
   display: inline-block;
-  position: relative;
-  top: -10px;
   background: linear-gradient(135deg, var(--card-type-color), rgba(255, 255, 255, 0.8));
   color: var(--primary-dark);
-  font-size: 8px;
+  font-size: 7pt;
   font-weight: 700;
   padding: 2px 8px;
-  border-radius: 12px;
-  margin-bottom: 5px;
+  border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .card-description {
-  font-size: 7.8px;
-  line-height: 1.2;
-  color: var(--text-primary);
-  margin-bottom: 0;
-  margin-top: -12px;
-  padding-right: 23px;
-  text-shadow:
-    1px 1px 2px rgba(0, 0, 0, 0.9),
-    0 0 4px rgba(0, 0, 0, 0.7),
-    0 0 8px rgba(26, 20, 35, 0.5);
-  overflow-y: visible;
   flex: 1;
+  font-size: 7.5pt;
+  line-height: 1.3;
+  color: var(--text-primary);
+  text-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 2px rgba(0, 0, 0, 0.5);
   font-weight: 500;
   word-wrap: break-word;
   overflow-wrap: anywhere;
   white-space: normal;
+  padding-right: 25px;
+  /* Space for stats overlay */
+  overflow-y: auto;
 }
 
-/* Simple stats display in bottom-right corner */
+/* Stats overlay on bottom section - Vertical Layout */
 .card-stats {
   position: absolute;
-  bottom: 10px;
-  right: 3px;
-  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.85);
   border: 2px solid var(--card-type-color);
   border-radius: 6px;
-  padding: 4px 8px;
+  padding: 4px 4px;
   backdrop-filter: blur(4px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  font-size: 16px;
+  font-size: 10px;
   font-weight: 800;
   color: var(--card-type-color);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  min-width: 10px;
   text-align: center;
+  z-index: 10;
+  min-width: 14px;
+  min-height: 38px;
+}
+
+.card-stats span {
+  display: block;
+}
+
+.card-stats .stat-value {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.card-stats .stats-divider {
+  font-size: 10px;
+  opacity: 0.7;
+  line-height: 0.8;
 }
 
 /* Divine cards special effect */
@@ -420,8 +451,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  justify-content: space-around;
+  gap: 0.5rem;
   padding: 1.5rem;
   background: rgba(26, 20, 35, 0.4);
   backdrop-filter: blur(8px);
@@ -430,14 +461,14 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 1rem;
-  max-height: calc(80vh - 2rem);
+  max-height: calc(80vh - 1rem);
   overflow: hidden;
 }
 
 /* Scale up card preview for better readability while maintaining exact ratio */
 .preview-panel .card-frame {
-  transform: scale(1.4);
-  transform-origin: center;
+  /* transform: scale(1.4); */
+  /* transform-origin: center; */
   margin: 0.8rem 1rem;
 }
 
@@ -749,16 +780,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+  line-height: 1.2;
   font-weight: 700;
-  padding: 1px 1.5px;
+  padding: 2px 3px;
   border-radius: 70%;
   white-space: nowrap;
   color: var(--primary-dark);
   text-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  min-width: 4px;
-  min-height: 8px;
+  width: 5px;
+  height: 10px;
+  box-sizing: border-box;
 }
 
 .cost-badge.suprimento_comum {

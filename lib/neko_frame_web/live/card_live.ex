@@ -197,37 +197,41 @@ defmodule NekoFrameWeb.CardLive do
     <!-- Live Preview -->
       <div class="preview-panel">
         <div class={"card-frame #{@card_class} #{if @is_legendary, do: "legendary"}"}>
-          <!-- Full art background -->
-          <div
-            class="card-art"
-            style={"background-image: url(#{@preview_url || ~c'/images/placeholder.png'})"}
-          >
-            <!-- Name overlay on top -->
+          <!-- Full art area with name overlay -->
+          <div class="card-art-area">
+            <img
+              src={@preview_url || "/images/placeholder.png"}
+              alt="Card Art"
+              class="card-art-image"
+            />
+
+            <!-- Name and cost overlay on top of art -->
             <div class="card-name-overlay">
               <span class="card-name">{@form[:name].value || "Nome da Carta"}</span>
               {render_cost_badges(@form)}
             </div>
           </div>
-          
-    <!-- Bottom frame only -->
-          <div class="card-bottom-frame">
-            <div class="card-type-badge">
-              {@form[:type].value}{if @form[:class].value && @form[:class].value != "",
-                do: " #{@form[:class].value}",
-                else: ""}
+
+          <!-- Bottom section with type and description -->
+          <div class="card-bottom-section">
+            <div class="card-type-line">
+              <span class="card-type-badge">
+                {@form[:type].value}{if @form[:class].value && @form[:class].value != "",
+                  do: " — #{@form[:class].value}",
+                  else: ""}
+              </span>
             </div>
             <div class="card-description" style={"font-size: #{@font_size}pt;"}>
               {@form[:description].value || "Descrição da carta..."}
             </div>
           </div>
-          
-    <!-- Simple stats in bottom-right corner -->
+
+          <!-- Stats overlay -->
           <%= if @form[:type].value in ["Gato", "Criaturinha", "Divindade", "Tutor"] do %>
             <div class="card-stats">
-              {@form[:briga].value || "0"}<br />-<br />{@form[:coragem].value || "0"}<br />
-              <!-- <span>{@form[:briga].value || "0"}</span>
-              <span>/</span>
-              <span>{@form[:coragem].value || "0"}</span> -->
+              <span class="stat-value">{@form[:briga].value || "0"}</span>
+              <span class="stats-divider">—</span>
+              <span class="stat-value">{@form[:coragem].value || "0"}</span>
             </div>
           <% end %>
         </div>

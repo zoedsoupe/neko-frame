@@ -58,8 +58,11 @@ function resizeImage(file, maxWidth = 2400, maxHeight = 3600, quality = 0.98) {
       canvas.height = height;
 
       // Enable high-quality image smoothing
-      ctx.imageSmoothingEnabled = true;
+      // ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
+      ctx.webkitImageSmoothingEnabled = false;
+      ctx.mozImageSmoothingEnabled = false;
+      ctx.imageSmoothingEnabled = false;
 
       // Draw and compress with high quality
       ctx.drawImage(img, 0, 0, width, height);
@@ -117,18 +120,11 @@ document.addEventListener('phx:update', initializeUploadHandlers);
 export async function exportCard(format = "png") {
   const cardElement = document.querySelector(".card-frame");
 
-  // Magic card standard dimensions at 600 DPI for maximum quality
-  // 2.5 x 3.5 inches at 600 DPI = 1500 x 2100 pixels
-  const CARD_WIDTH = 1500;
-  const CARD_HEIGHT = 2100;
-
-  // Maximum render scale for sharpest possible image
-  const RENDER_SCALE = 10;
-
-  // 1) Clone card and reset any preview transforms
+  // Clone card and reset any preview transforms
   const clone = cardElement.cloneNode(true);
   clone.style.position = "absolute";
-  clone.style.top = "-9999px"; // offscreen
+  clone.style.left = "-9999px"; // offscreen
+  clone.style.top = "0";
   clone.style.width = "2.5in"; // Ensure exact dimensions
   clone.style.height = "3.5in";
   clone.style.transform = "none"; // Reset any scaling from preview
@@ -136,43 +132,27 @@ export async function exportCard(format = "png") {
   clone.style.margin = "0";
   document.body.appendChild(clone);
 
-  // 2) Render at maximum resolution with optimized settings
-  const rawCanvas = await html2canvas(clone, {
+  // IMG tags render much better than background-images
+  const canvas = await html2canvas(clone, {
     backgroundColor: null,
     useCORS: true,
-    allowTaint: false,
+    allowTaint: true,
+    scale: 4, // Good balance for quality
     logging: false,
-    scrollX: 0,
-    scrollY: 0,
-    scale: RENDER_SCALE, // Maximum quality
-    imageTimeout: 0, // No timeout for image loading
-    removeContainer: true // Clean up after rendering
+    imageTimeout: 0 // Allow time for images to load
   });
 
   document.body.removeChild(clone);
 
-  // 3) Create final canvas at exact Magic size (600 DPI)
-  const finalCanvas = document.createElement("canvas");
-  finalCanvas.width = CARD_WIDTH;
-  finalCanvas.height = CARD_HEIGHT;
-  const ctx = finalCanvas.getContext("2d");
-
-  // Set maximum quality image interpolation
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
-
-  // Downscale high-res render → ultra-sharp final image
-  ctx.drawImage(rawCanvas, 0, 0, CARD_WIDTH, CARD_HEIGHT);
-
-  // 4) Export as PNG with maximum quality
-  finalCanvas.toBlob((blob) => {
+  // Direct export without additional canvas manipulation
+  canvas.toBlob((blob) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `neko-card-${Date.now()}.${format}`;
+    a.download = `neko-card-${Date.now()}.png`;
     a.click();
     URL.revokeObjectURL(url);
-  }, `image/${format}`, 1);
+  }, "image/png", 1);
 }
 
 
